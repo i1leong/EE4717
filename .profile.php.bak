@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Integrated Medical Appointment System</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+</head>
+<?php
+
+include "session.php";
+include "db.php";
+//session_start();
+if ((isset($_SESSION["id"]) AND ($_POST["update-button"] != "Update"))){
+	$id = $_SESSION["id"];
+	$sql = "SELECT * FROM `users` WHERE id='$id'"; 
+	//echo $sql;
+	$result = mysqli_query($conn, $sql) or die (mysql_error());
+	$row = mysqli_fetch_assoc($result);
+	//echo $row["name"];
+	$GLOBALS = $row;
+?>	
+<body>
+    <div class="wrapper">
+        <header>
+            <center><img src="assets/header.png" height="120px" width="1000px"
+                    alt="Integrated Medical Appointment System"></center>
+        </header>
+        <div class="nav_bar_landing">
+            <nav class="navbar">
+                <ul class="topnav">
+                    <li class="left"><a href="doctor.php">Doctor</a></li>
+                    <li><a>|</a></li>
+                    <li><a href="appointments.php">Appointments</a></li>
+                    <li><a>|</a></li>
+                    <li><a href="history.php">History</a></li>
+                    <li><a>|</a></li>
+                    <li><a class="active" href="profile.php">Profile</a></li>
+                    <li class="right" id="logout"><a href="logout.php">Logout</a></li>
+                </ul>
+            </nav>
+	</div>
+	
+        <div class="content">
+            <div class="profile-form">
+                <div class="profile_picture">
+                    <img class="avatar" src="assets/avatar-default.png" alt="avatar" width="150px">
+                </div>
+                <form action="" method="post">
+                    <div class="row">
+                        <div class="col-50-left">
+                            <label for="name">Name:</label>
+                        </div>
+                        <div class="col-50-right">
+			    <label id="name" for="name"><?php echo $GLOBALS["name"];?></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-50-left">
+                            <label for="contact">Contact:</label>
+                        </div>
+                        <div class="col-50-right">
+			<label id="contact" for="contact"><?php echo $GLOBALS["phone"];?></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-50-left">
+                            <label for="email">E-mail:</label>
+                        </div>
+                        <div class="col-50-right">
+			<label id="email" for="email"><?php echo $GLOBALS["email"];?></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-50-left">
+                            <label for="dob">D.O.B.:</label>
+                        </div>
+                        <div class="col-50-right">
+			<label id="dob" for="dob"><?php echo $GLOBALS["dob"];?></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-50-left">
+                            <label for="height">Height</label>
+                        </div>
+                        <div class="col-50-right">
+			<label id="height" for="height"><?php echo $GLOBALS["height"];?></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-50-left">
+                            <label for="existing_conditions">Health Conditions:</label>
+                        </div>
+                        <div class="col-50-right">
+			<label id="existing_conditions" for="existing_conditions"><?php echo $GLOBALS["existing_condition"];?></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-50-left">
+                            <label for="active">Active</label>
+                        </div>
+                        <div class="col-50-right">
+                            <label id="active" for="active">Yes</label>
+                        </div>
+                    </div>
+                    <div id="update-button-container">
+                        <label></label>
+                        <input id="update-button" name="update-button" type="submit" value="Update">
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="scripts/validator2.js"></script>
+<?php } 
+	//$GLOBALS = array();
+	//echo $GLOBALS["name"];
+	else if ((isset($_SESSION["id"]) AND ($_POST["update-button"] == "Update"))){
+	echo "you can edit now";
+	}
+?>
+
+</html>
